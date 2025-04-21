@@ -1,0 +1,41 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(31, 31, 31);
+    padding: 10px 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.toolbar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.toolbar .links {
+    display: flex;
+    gap: 15px;
+}
+
+.toolbar .button {
+    padding: 8px 15px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #555555;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.toolbar .button:hover {
+    background-color: #777777;
+}
