@@ -8,8 +8,12 @@ fetch('skin.json')
             return skin;
         });
 
+        const vehicles = data.vehicles || [];
+        const weapons = data.weapons || [];
+
         const searchBar = document.getElementById('search-bar');
         const autocompleteList = document.getElementById('autocomplete-list');
+        const categoryDropdown = document.getElementById('category-dropdown');
         const resultBox = document.createElement('div');
         resultBox.id = 'result-box';
         document.body.appendChild(resultBox);
@@ -24,9 +28,22 @@ fetch('skin.json')
             autocompleteList.innerHTML = '';
 
             if (query) {
-                const startsWithMatches = skins.filter(skin => skin.name.toLowerCase().startsWith(query));
-                const containsMatches = skins.filter(skin => skin.name.toLowerCase().includes(query) && !skin.name.toLowerCase().startsWith(query));
-                const matches = [...startsWithMatches, ...containsMatches];
+                let matches = [];
+                const selectedCategory = categoryDropdown.value;
+
+                if (selectedCategory === 'skins') {
+                    const startsWithMatches = skins.filter(skin => skin.name.toLowerCase().startsWith(query));
+                    const containsMatches = skins.filter(skin => skin.name.toLowerCase().includes(query) && !skin.name.toLowerCase().startsWith(query));
+                    matches = [...startsWithMatches, ...containsMatches];
+                } else if (selectedCategory === 'vehicles') {
+                    const startsWithMatches = vehicles.filter(vehicle => vehicle.name.toLowerCase().startsWith(query));
+                    const containsMatches = vehicles.filter(vehicle => vehicle.name.toLowerCase().includes(query) && !vehicle.name.toLowerCase().startsWith(query));
+                    matches = [...startsWithMatches, ...containsMatches];
+                } else if (selectedCategory === 'weapons') {
+                    const startsWithMatches = weapons.filter(weapon => weapon.name.toLowerCase().startsWith(query));
+                    const containsMatches = weapons.filter(weapon => weapon.name.toLowerCase().includes(query) && !weapon.name.toLowerCase().startsWith(query));
+                    matches = [...startsWithMatches, ...containsMatches];
+                }
 
                 matches.forEach(match => {
                     const listItem = document.createElement('li');
@@ -37,7 +54,9 @@ fetch('skin.json')
                         displaySkinDetails(match);
 
                         const searchContainer = document.querySelector('.search-container');
-                        searchContainer.style.transition = 'transform 0.5s ease';
+                        searchContainer.style.transition = 'transform 0.5s ease, margin-top 0.5s ease';
+                        searchContainer.style.marginTop = '175px';
+
                         searchContainer.style.transform = 'translate(-100%, -50%)';
                         searchContainer.style.top = '200px';
 
@@ -60,7 +79,7 @@ fetch('skin.json')
             resultBox.style.color = 'white';
             resultBox.style.borderRadius = '5px';
             resultBox.style.width = '300px';
-            resultBox.style.height = '400px';
+            resultBox.style.height = '450px';
             resultBox.style.fontFamily = 'Arial, Helvetica, sans-serif';
 
             const rarityColors = {
@@ -69,7 +88,8 @@ fetch('skin.json')
                 'Epic': '#9251c9',
                 'Legendary': '#c4b934',
                 'Special': '#14f461',
-                'Limited': '#f54c5f'
+                'Limited': '#f54c5f',
+                'Mythic': '#f54c5f',
             };
 
             const rarityColor = rarityColors[skin.rarity] || 'white';
@@ -106,6 +126,7 @@ fetch('skin.json')
                 skinImage.style.width = '100%';
                 skinImage.style.borderRadius = '5px';
                 skinImage.style.marginBottom = '10px';
+                skinImage.style.outline = '3px solid #ccc';
                 resultBox.appendChild(skinImage);
             }
 

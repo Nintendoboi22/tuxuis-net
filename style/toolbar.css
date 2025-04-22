@@ -18,6 +18,10 @@
     object-fit: cover;
 }
 
+img {
+    outline: 3px solid;
+}
+
 .toolbar .links {
     display: flex;
     gap: 15px;

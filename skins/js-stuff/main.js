@@ -11,15 +11,11 @@ fetch('skin.json')
         console.log(updatedSkins);
     })
     .catch(error => console.error('Error updating skin data:', error));
-    
-const searchBar = document.getElementById('search-bar');
-        const searchButton = document.getElementById('search-button');
 
-        function handleSearch() {
-            const query = searchBar.value.trim();
-            if (query) {
-                console.log(`Searching for: ${query}`);
-            }
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    const searchBar = document.getElementById('search-bar');
 
-        searchButton.addEventListener('click', handleSearch);
+    if (!searchBar) {
+        console.error('Search bar not found in the DOM.');
+    }
+});
